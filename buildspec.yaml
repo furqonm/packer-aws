@@ -14,8 +14,8 @@ phases:
     on-failure: ABORT
     commands:
       - echo "3. Check if HashiCorp Packer template is valid..."
-      - /usr/sbin/packer init .
-      - /usr/sbin/packer validate .
+      - /usr/bin/packer init .
+      - /usr/bin/packer validate .
 
       - echo "4. Configuring AWS credentials..."
       - curl -qL -o aws_credentials.json http://169.254.170.2/$AWS_CONTAINER_CREDENTIALS_RELATIVE_URI > aws_credentials.json
@@ -27,7 +27,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo "5. Building HashiCorp Packer template..."
-      - /usr/sbin/packer build aws-ubuntu.pkr.hcl
+      - /usr/bin/packer build aws-ubuntu.pkr.hcl
   post_build:
     commands:
       - echo "6. HashiCorp Packer build completed on `date`"
