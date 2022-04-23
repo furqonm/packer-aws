@@ -7,16 +7,33 @@ packer {
   }
 }
 
+variable "ami_id" {
+  type    = string
+  default = "ami-0f9fc25dd2506cf6d"
+}
+variable "region" {
+  type    = string
+  default = "us-east-1"
+}
+variable "version" {
+  type    = string
+  default = "0.1"
+}
+
 source "amazon-ebs" "amazonlinux" {
-  ami_name      = "packer-linux-aws_{{timestamp}}"
+  source_ami    = "${var.ami_id}"
+  region        = "${var.region}"
   instance_type = "t2.micro"
-  region        = "us-east-1"
-  source_ami    = "ami-0f9fc25dd2506cf6d"
   ssh_username  = "ec2-user"
+  ami_name      = "packer-linux-aws_{{timestamp}}"
+  tags = {
+    Name = "AmazonLinux 2.${var.version}"
+    Base_AMI_Name = "{{ .SourceAMIName }}"
+  }
 }
 
 build {
-  name    = "learn-packer"
+  name    = "build-packer"
   sources = [
     "source.amazon-ebs.amazonlinux"
   ]

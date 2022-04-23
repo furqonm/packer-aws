@@ -27,7 +27,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo "5. Building HashiCorp Packer template..."
-      - /usr/bin/packer build amazonlinux.pkr.hcl
+      - /usr/bin/packer build -var region=$AWS_REGION -var version=$CODEBUILD_BUILD_NUMBER amazonlinux.pkr.hcl
   post_build:
     commands:
       - echo "6. HashiCorp Packer build completed on `date`"
