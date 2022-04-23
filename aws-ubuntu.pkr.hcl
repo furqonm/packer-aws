@@ -7,26 +7,18 @@ packer {
   }
 }
 
-source "amazon-ebs" "ubuntu" {
-  ami_name      = "packer-linux-aws"
+source "amazon-ebs" "amazonlinux" {
+  ami_name      = "packer-linux-aws_{{timestamp}}"
   instance_type = "t2.micro"
-  region        = "us-west-2"
-  source_ami_filter {
-    filters = {
-      name                = "ubuntu/images/*ubuntu-xenial-20.04-amd64-server-*"
-      root-device-type    = "ebs"
-      virtualization-type = "hvm"
-    }
-    most_recent = true
-    owners      = ["099720109477"]
-  }
-  ssh_username = "ubuntu"
+  region        = "us-east-1"
+  source_ami    = "ami-0f9fc25dd2506cf6d"
+  ssh_username  = "ec2-user"
 }
 
 build {
   name    = "learn-packer"
   sources = [
-    "source.amazon-ebs.ubuntu"
+    "source.amazon-ebs.amazonlinux"
   ]
   
   provisioner "shell" {
@@ -35,11 +27,14 @@ build {
     ]
     inline = [
       "#!/bin/bash",
-      "apt-get update",
-      "apt-get install -y apache2",
-      "cat <<EOF > /var/www/index.html",
-      "<html><body><h1>$WORD</h1></body></html>",
-      "EOF",
+      "yum update -y",
+      "yum install -y httpd",
+      "systemctl start httpd",
+      "systemctl enable httpd",
+      "usermod -a -G apache ec2-user",
+      "chown -R ec2-user:apache /var/www",
+      "chmod 2775 /var/www",
+      "echo '<html><h1> $WORD </h1></html>' > /var/www/html/index.html",
     ]
   }
 }
