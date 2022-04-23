@@ -3,6 +3,7 @@ phases:
   install:
     on-failure: ABORT
     commands:
+      - pwd
       - echo "1. Installing HashiCorp Packer..."
       - yum install -y yum-utils
       - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
