@@ -14,6 +14,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo "3. Check if HashiCorp Packer template is valid..."
+      - packer init .
       - packer validate .
 
       - echo "4. Configuring AWS credentials..."
@@ -26,8 +27,7 @@ phases:
     on-failure: ABORT
     commands:
       - echo "5. Building HashiCorp Packer template..."
-      - packer init .
-      - packer build -debug aws-ubuntu.pkr.hcl
+      - packer build aws-ubuntu.pkr.hcl
   post_build:
     commands:
       - echo "6. HashiCorp Packer build completed on `date`"
