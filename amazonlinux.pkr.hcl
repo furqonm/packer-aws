@@ -27,7 +27,7 @@ source "amazon-ebs" "amazonlinux" {
   ssh_username  = "ec2-user"
   ami_name      = "packer-linux-aws_{{timestamp}}"
   tags = {
-    Name = "AmazonLinux 2.${var.version}"
+    Name = "AmazonLinux 2.0.${var.version}"
     Base_AMI_Name = "{{ .SourceAMIName }}"
   }
 }
@@ -53,5 +53,9 @@ build {
       "sudo chmod 2775 /var/www",
       "echo '<html><h1> $WORD </h1></html>' > /var/www/html/index.html",
     ]
+  }
+  provisioner "file" {
+    source      = "."
+    destination = "/var/www/html/"
   }
 }
