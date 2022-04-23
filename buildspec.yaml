@@ -11,7 +11,7 @@ phases:
       - echo "2. Installing jq..."
       - curl -qL -o jq https://stedolan.github.io/jq/download/linux64/jq && chmod +x ./jq
     finally:
-      - /usr/bin/packer
+      - which packer
   pre_build:
     on-failure: ABORT
     commands:
