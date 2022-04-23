@@ -55,7 +55,7 @@ build {
     ]
   }
   provisioner "file" {
-    source      = "*.*"
+    source      = "./"
     destination = "/var/www/html/"
   }
 }
