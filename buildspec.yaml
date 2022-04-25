@@ -3,14 +3,14 @@ phases:
   install:
     on-failure: ABORT
     commands:
-      - pwd
       - echo "1. Installing HashiCorp Packer..."
       - yum install -y yum-utils
       - yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
       - yum -y install packer
 
-      - echo "2. Installing jq..."
-      - curl -qL -o jq https://stedolan.github.io/jq/download/linux64/jq && chmod +x ./jq
+      - echo "2. Downloading jq..."
+      - curl -qL -o jq https://stedolan.github.io/jq/download/linux64/jq
+      - chmod +x ./jq
   pre_build:
     on-failure: ABORT
     commands:
