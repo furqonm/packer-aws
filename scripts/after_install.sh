@@ -7,6 +7,6 @@ service httpd start
 if grep -q "AWS Workshop" /var/www/html/index.html; then
   echo "Text found in HTML file."
 else
-  echo "Error: No text found in HTML file."
+  echo "Error: No text found in HTML file!"
   exit 1  # Exit with a non-zero status to indicate failure
 fi
