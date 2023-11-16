@@ -7,4 +7,4 @@ if ! command -v httpd &> /dev/null; then
 fi
 
 # Stop Apache service before deployment
-service httpd stop
+systemctl stop httpd

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start Apache service after deployment
-service httpd start
+systemctl start httpd
 
 # Check if there is text in the HTML file
 if grep -q "AWS Workshop" /var/www/html/index.html; then
